@@ -1,0 +1,85 @@
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE DeriveGeneric #-}
+
+module Main where
+
+import Data.Monoid ((<>))
+import Data.Aeson (FromJSON, ToJSON)
+import GHC.Generics
+
+import Database.PostgreSQL.Simple
+import Database.PostgreSQL.Simple.FromRow
+import Database.PostgreSQL.Simple.ToRow
+import Database.PostgreSQL.Simple.ToField
+import Control.Monad
+import Control.Applicative
+import Database.PostgreSQL.Simple.URL
+import Control.Exception
+import System.IO
+import System.IO.Error
+import Control.Monad.IO.Class
+import Data.Text.Lazy.Encoding (decodeUtf8)
+import Test.Hspec
+import Test.Hspec.Wai
+import Test.Hspec
+import Test.Hspec.Wai
+import Test.Hspec.Wai.JSON
+import Network.Wai (Application)
+
+import qualified Web.Scotty as S
+
+import System.Environment
+
+data Menu = Menu { idMenu :: Maybe Int, name :: Maybe String, description :: Maybe String, price :: Maybe Int, restaurant :: Maybe Int } deriving (Show,Generic)
+instance ToJSON Menu
+instance FromJSON Menu
+
+data Resultado= Resultado{tipo :: Maybe String, mensaje :: Maybe String} deriving (Show,Generic)
+instance ToJSON Resultado
+
+
+matchesId :: Int -> Menu -> Bool
+matchesId id menu = case idMenu menu of
+        Nothing -> False
+        Just int -> int == id
+
+instance FromRow Menu where
+  fromRow = Menu <$> field <*> field <*> field <*> field <*> field
+  
+  
+instance ToRow Menu where
+  toRow d = [toField (idMenu d), toField (name d), toField (description d), toField (price d), toField (restaurant d)]
+
+
+getAllMenus :: Connection -> IO [Menu]
+getAllMenus c = do
+  list <- (query_ c "select * from menu" :: IO [Menu])
+  return list
+
+main :: IO ()
+main = S.scotty 8080 servicios
+
+--main =return ()
+
+pruebasUnitarias :: IO()
+pruebasUnitarias= hspec spec
+
+servicios :: IO Application
+servicios = do
+
+  --env <- getEnvironment
+  --let port = maybe 8080 read $ lookup "PORT" env
+  S.scottyApp $ do
+     
+    S.get "/" $ do
+      S.text ("Bienvenido")
+
+
+spec :: Spec
+spec = with servicios $ do
+  describe "GET /" $ do
+    it "responds with 200" $ do
+      get "/" `shouldRespondWith` 200
+
+
+

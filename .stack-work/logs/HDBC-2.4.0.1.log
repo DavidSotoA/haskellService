@@ -1,0 +1,39 @@
+Configuring HDBC-2.4.0.1...
+Building HDBC-2.4.0.1...
+Preprocessing library HDBC-2.4.0.1...
+[1 of 8] Compiling Database.HDBC.Locale ( Database/HDBC/Locale.hs, .stack-work/dist/x86_64-linux/Cabal-1.24.0.0/build/Database/HDBC/Locale.o )
+[2 of 8] Compiling Database.HDBC.SqlValue ( Database/HDBC/SqlValue.hs, .stack-work/dist/x86_64-linux/Cabal-1.24.0.0/build/Database/HDBC/SqlValue.o )
+
+Database/HDBC/SqlValue.hs:38:1: warning: [-Wredundant-constraints]
+    • Redundant constraint: Convertible SqlValue a
+    • In the type signature for:
+           quickError :: (Typeable a, Convertible SqlValue a) =>
+                         SqlValue -> ConvertResult a
+
+Database/HDBC/SqlValue.hs:922:1: warning: [-Wredundant-constraints]
+    • Redundant constraint: Convertible SqlValue a
+    • In the type signature for:
+           viaInteger' :: (Convertible SqlValue a, Bounded a, Show a,
+                           Convertible a Integer, Typeable a) =>
+                          SqlValue -> (Integer -> ConvertResult a) -> ConvertResult a
+
+Database/HDBC/SqlValue.hs:938:1: warning: [-Wredundant-constraints]
+    • Redundant constraint: Convertible SqlValue a
+    • In the type signature for:
+           read' :: (Typeable a, Read a, Convertible SqlValue a) =>
+                    String -> ConvertResult a
+
+Database/HDBC/SqlValue.hs:949:1: warning: [-Wredundant-constraints]
+    • Redundant constraint: Convertible SqlValue t
+    • In the type signature for:
+           parseTime' :: (Typeable t, Convertible SqlValue t, ParseTime t) =>
+                         String -> String -> ConvertResult t
+[3 of 8] Compiling Database.HDBC.ColTypes ( Database/HDBC/ColTypes.hs, .stack-work/dist/x86_64-linux/Cabal-1.24.0.0/build/Database/HDBC/ColTypes.o )
+[4 of 8] Compiling Database.HDBC.Statement ( Database/HDBC/Statement.hs, .stack-work/dist/x86_64-linux/Cabal-1.24.0.0/build/Database/HDBC/Statement.o )
+[5 of 8] Compiling Database.HDBC.Types ( Database/HDBC/Types.hs, .stack-work/dist/x86_64-linux/Cabal-1.24.0.0/build/Database/HDBC/Types.o )
+[6 of 8] Compiling Database.HDBC.Utils ( Database/HDBC/Utils.hs, .stack-work/dist/x86_64-linux/Cabal-1.24.0.0/build/Database/HDBC/Utils.o )
+[7 of 8] Compiling Database.HDBC.DriverUtils ( Database/HDBC/DriverUtils.hs, .stack-work/dist/x86_64-linux/Cabal-1.24.0.0/build/Database/HDBC/DriverUtils.o )
+[8 of 8] Compiling Database.HDBC    ( Database/HDBC.hs, .stack-work/dist/x86_64-linux/Cabal-1.24.0.0/build/Database/HDBC.o )
+Installing library in
+/home/skorpionx/.stack/snapshots/x86_64-linux/lts-7.4/8.0.1/lib/x86_64-linux-ghc-8.0.1/HDBC-2.4.0.1-4RVX8kLUuxOI95AL10vhvV
+Registering HDBC-2.4.0.1...
